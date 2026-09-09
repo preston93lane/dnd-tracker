@@ -144,11 +144,11 @@
     </div>
 
     <script>
+		let monsterDatabase = JSON.parse(localStorage.getItem('dnd_monster_database')) || [];
+		
         let combatants = [];
         let activeIndex = -1;
         let round = 1;
-
-	let monsterDatabase = [];
 
 // Pre-baked starter SRD monster for immediate testing
 monsterDatabase.push({

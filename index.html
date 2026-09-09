@@ -1365,6 +1365,60 @@ window.onload = function() {
                 alert('Formatted loot copied to clipboard for Obsidian!');
             });
         }
+
+        // --- PASTE THE DYNAMIC DROPDOWN SCRIPT RIGHT HERE ---
+        const searchInput = document.getElementById('monsterSearch');
+
+        if (searchInput) {
+            let dropdown = document.createElement('div');
+            dropdown.id = 'dynamicSearchDropdown';
+            dropdown.style.cssText = 'position: absolute; top: 100%; left: 0; right: 0; background: #fff; color: #000; border: 1px solid #ccc; max-height: 250px; overflow-y: auto; z-index: 9999; display: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1);';
+            
+            if (searchInput.parentElement) {
+                searchInput.parentElement.style.position = 'relative';
+                searchInput.parentElement.appendChild(dropdown);
+            }
+
+            searchInput.addEventListener('input', (e) => {
+                let query = e.target.value.toLowerCase().trim();
+                dropdown.innerHTML = '';
+                
+                if (query.length === 0) {
+                    dropdown.style.display = 'none';
+                    return;
+                }
+
+                let matches = monsterDatabase.filter(m => m.name.toLowerCase().includes(query)).slice(0, 15);
+                
+                if (matches.length === 0) {
+                    dropdown.style.display = 'none';
+                    return;
+                }
+
+                matches.forEach(m => {
+                    let item = document.createElement('div');
+                    item.style.padding = '10px 12px';
+                    item.style.cursor = 'pointer';
+                    item.style.borderBottom = '1px solid #eee';
+                    item.textContent = `${m.name} (AC: ${m.ac} | HP: ${m.hp})`;
+                    
+                    item.addEventListener('click', () => {
+                        searchInput.value = m.name;
+                        dropdown.style.display = 'none';
+                    });
+
+                    dropdown.appendChild(item);
+                });
+
+                dropdown.style.display = 'block';
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!searchInput.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.style.display = 'none';
+                }
+            });
+        }
     </script>
 </body>
 </html>

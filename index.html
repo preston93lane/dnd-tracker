@@ -67,28 +67,35 @@
 <body>
 
     <div class="header-controls">
-        <div>
-    <button onclick="addCombatant('player')">+ Add Player</button>
-    <button onclick="addCombatant('lair')">+ Add Lair/Event</button>
-    
-    <!-- Searchable Monster Dropdown -->
-<div style="display: flex; gap: 8px; align-items: flex-start; width: 100%; margin-bottom: 10px;">
-        <input type="text" id="monsterSearchInput" placeholder="Search monsters..." autocomplete="off" style="width: 100%; padding: 8px; box-sizing: border-box;">
-        <div id="customSearchDropdown" style="position: absolute; top: 100%; left: 0; right: 0; background: #fff; color: #000; border: 1px solid #ccc; max-height: 250px; overflow-y: auto; z-index: 9999; display: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"></div>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap; width: 100%; align-items: center;">
+            <button onclick="addCombatant('player')">+ Add Player</button>
+            <button onclick="addCombatant('lair')">+ Add Lair/Event</button>
+            
+            <!-- Search Input & Dropdown Wrapper (Must have position: relative) -->
+            <div style="position: relative; display: inline-block; flex-grow: 1; min-width: 200px;">
+                <input type="text" id="monsterSearchInput" placeholder="Search monsters..." autocomplete="off" style="width: 100%; padding: 8px; box-sizing: border-box;">
+                <div id="customSearchDropdown" style="position: absolute; top: 100%; left: 0; right: 0; background: #fff; color: #000; border: 1px solid #ccc; max-height: 250px; overflow-y: auto; z-index: 9999; display: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"></div>
+            </div>
+            
+            <button type="button" id="addMonsterBtn" style="padding: 8px 16px;">Add Monster</button>
+            
+            <!-- Local JSON Importer -->
+            <label for="jsonUpload" class="btn" style="padding: 6px 10px; background: var(--highlight); border: 1px solid var(--border); border-radius: 4px; cursor: pointer; font-size: 13px;">
+                📁 Import Monster JSON
+            </label>
+            <input type="file" id="jsonUpload" onchange="importMonsterJson(event)" style="display: none;">
+        </div>
     </div>
-			
-    <!-- Add Monster Button Restored -->
-    <button type="button" id="addMonsterBtn" style="padding: 8px 16px;">Add Monster</button>
-</div>
     
     <!-- Local JSON Importer -->
-    <label for="jsonUpload" class="btn" style="padding: 6px 10px; background: var(--highlight); border: 1px solid var(--border); border-radius: 4px; cursor: pointer; font-size: 13px;">
-        📁 Import Monster JSON
-    </label>
-    <input type="file" id="jsonUpload" onchange="importMonsterJson(event)" style="display: none;">
-</div>
+            <label for="jsonUpload" class="btn" style="padding: 6px 10px; background: var(--highlight); border: 1px solid var(--border); border-radius: 4px; cursor: pointer; font-size: 13px;">
+                📁 Import Monster JSON
+            </label>
+            <input type="file" id="jsonUpload" onchange="importMonsterJson(event)" style="display: none;">
+        </div>
+    </div>
 
-<!-- ENCOUNTER BUILDER SECTION -->
+    <!-- ENCOUNTER BUILDER SECTION -->
     <div class="header-controls" style="background: var(--panel); padding: 10px; border-radius: 6px; border: 1px solid var(--border);">
         <div>
             <strong style="color: var(--accent); margin-right: 10px;">Encounter Builder:</strong>
